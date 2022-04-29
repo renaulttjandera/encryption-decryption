@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encryption-Decryption</title>
+  </head>
+  <body>
+    <input type="text" id="textbox" />
+    <p id="result"></p>
+    <button id="encrypt">Encrypt</button>
+    <script>
+      const textbox = document.getElementById("textbox");
+      const result = document.getElementById("result");
+      const encrypt = document.getElementById("encrypt");
+      const dictionary = {
+        a: "z",
+        b: "5",
+        c: "3",
+        d: "c",
+        e: "d",
+        f: "v",
+        g: "b",
+        h: "n",
+        i: "k",
+        j: "m",
+        k: ",",
+        l: ".",
+        m: "7",
+        n: "6",
+        o: "l",
+        p: ";",
+        q: "a",
+        r: "f",
+        s: "x",
+        t: "g",
+        u: "j",
+        v: "4",
+        w: "s",
+        x: "2",
+        y: "h",
+        z: "1",
+      };
+
+      encrypt.addEventListener("click", function () {
+        let text = textbox.value;
+        let encrypted = "";
+        for (let i = 0; i < text.length; i++) {
+          let letter = text[i];
+          if (dictionary[letter]) {
+            encrypted += dictionary[letter];
+          } else {
+            encrypted += letter;
+          }
+        }
+        result.innerHTML = encrypted;
+      });
+    </script>
+  </body>
+</html>
