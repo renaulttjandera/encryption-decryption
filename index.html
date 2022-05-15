@@ -10,10 +10,12 @@
     <input type="text" id="textbox" />
     <p id="result"></p>
     <button id="encrypt">Encrypt</button>
+    <button id="decrypt">Decrypt</button>
     <script>
       const textbox = document.getElementById("textbox");
       const result = document.getElementById("result");
       const encrypt = document.getElementById("encrypt");
+      const decrypt = document.getElementById("decrypt");
       const dictionary = {
         a: "z",
         b: "5",
@@ -41,7 +43,21 @@
         x: "2",
         y: "h",
         z: "1",
+        1: "q",
+        2: "w",
+        3: "e",
+        4: "r",
+        5: "t",
+        6: "y",
+        7: "u",
+        8: "i",
+        9: "o",
+        0: "p",
       };
+
+      function getKeyByValue(object, value) {
+        return Object.keys(object).find((key) => object[key] === value);
+      }
 
       encrypt.addEventListener("click", function () {
         let text = textbox.value;
@@ -55,6 +71,20 @@
           }
         }
         result.innerHTML = encrypted;
+      });
+
+      decrypt.addEventListener("click", function () {
+        let text = textbox.value;
+        let decrypted = "";
+        for (let i = 0; i < text.length; i++) {
+          let letter = text[i];
+          if (getKeyByValue(dictionary, letter)) {
+            decrypted += getKeyByValue(dictionary, letter);
+          } else {
+            decrypted += letter;
+          }
+        }
+        result.innerHTML = decrypted;
       });
     </script>
   </body>
