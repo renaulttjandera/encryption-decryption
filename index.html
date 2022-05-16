@@ -7,15 +7,35 @@
     <title>Encryption-Decryption</title>
   </head>
   <body>
+    <h1>Keyboard Encryption Method</h1>
     <input type="text" id="textbox" />
     <p id="result"></p>
     <button id="encrypt">Encrypt</button>
     <button id="decrypt">Decrypt</button>
+
+    <h1>Panda Encryption Method</h1>
+    <p>Letter</p>
+    <input type="text" id="letter-box" />
+    <p>Number</p>
+    <input type="text" id="number-box" />
+    <p>Letter = Number, e.g. J = 5</p>
+    <p><b>Text</b></p>
+    <input type="text" id="textbox2" />
+    <p><b>Result</b></p>
+    <p id="result2"></p>
+    <button id="encrypt2">Encrypt</button>
+    <button id="decrypt2">Decrypt</button>
     <script>
       const textbox = document.getElementById("textbox");
       const result = document.getElementById("result");
       const encrypt = document.getElementById("encrypt");
       const decrypt = document.getElementById("decrypt");
+      const textbox2 = document.getElementById("textbox2");
+      const result2 = document.getElementById("result2");
+      const encrypt2 = document.getElementById("encrypt2");
+      const decrypt2 = document.getElementById("decrypt2");
+      const letterBox = document.getElementById("letter-box");
+      const numberBox = document.getElementById("number-box");
       const dictionary = {
         a: "z",
         b: "5",
@@ -85,6 +105,70 @@
           }
         }
         result.innerHTML = decrypted;
+      });
+
+      const array = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+      const newArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+      function arraySet(letter, number) {
+        let index = array.indexOf(letter.toLowerCase());
+        for (i = 0; i <= 26; i++) {
+          if (newArray.length > 26) {
+            newArray[0] = newArray.pop();
+            index = 1;
+          } else {
+            newArray[index] = array[number - 1];
+            index += 1;
+            number += 1;
+
+            if (number > 26) {
+              number = 1;
+            }
+          }
+        }
+      }
+
+      function encryption(text) {
+        let encrypted = "";
+        for (let i = 0; i < text.length; i++) {
+          let letter = text.toLowerCase()[i];
+          if (letter === " ") {
+            encrypted += " ";
+          } else {
+            let index = array.indexOf(letter);
+            encrypted += newArray[index];
+          }
+          // let index = array.indexOf(letter);
+          // encrypted += newArray[index];
+        }
+        return encrypted;
+      }
+
+      function decryption(text) {
+        let decrypted = "";
+        for (let i = 0; i < text.length; i++) {
+          let letter = text.toLowerCase()[i];
+          if (letter === " ") {
+            decrypted += " ";
+          } else {
+            let index = newArray.indexOf(letter);
+            decrypted += array[index];
+          }
+          // let index = newArray.indexOf(letter);
+          // decrypted += array[index];
+        }
+        return decrypted;
+      }
+
+      encrypt2.addEventListener("click", function () {
+        const tulisan = textbox2.value;
+        arraySet(letterBox.value, parseInt(numberBox.value));
+        result2.innerText = encryption(tulisan);
+      });
+
+      decrypt2.addEventListener("click", function () {
+        const tulisan = textbox2.value;
+        arraySet(letterBox.value, parseInt(numberBox.value));
+        result2.innerText = decryption(tulisan);
       });
     </script>
   </body>
